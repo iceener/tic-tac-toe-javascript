@@ -26,6 +26,10 @@ function pick(event) {
     console.log(check());
 }
 
+function disableElementIfWinner() {
+	boxes.forEach(box => box.removeEventListener('click', pick, false));
+}
+
 function check() {
     const result = board.reduce((total, row) => total.concat(row));
     let winner = null;
@@ -37,9 +41,11 @@ function check() {
     combinations.forEach(combination => {
         if (combination.every(index => moves[PLAYER1].indexOf(index) > -1)) {
             winner = 'Winner: Player 1';
-        }
+			disableElementIfWinner();
+	    }
         if (combination.every(index => moves[PLAYER2].indexOf(index) > -1)) {
             winner = 'Winner: Player 2';
+			disableElementIfWinner();
         }
     });
 
